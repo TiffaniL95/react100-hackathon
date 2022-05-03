@@ -1,4 +1,6 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
+const webpack = require('webpack')
 
 module.exports = {
   context: path.join(__dirname, '/src'),
@@ -36,4 +38,13 @@ module.exports = {
       }
     ],
   },
+
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
+    new Dotenv(),
+  ],
 };
