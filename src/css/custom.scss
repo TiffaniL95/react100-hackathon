@@ -1,3 +1,52 @@
 .red {
-    color: red;
+    color: rgb(255, 0, 0);
+}
+
+.yellow {
+    color: yellow;
+}
+
+body {
+    background: url('./background.png') no-repeat top;
+    background-size: cover;
+    font-family: "Anton", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1.25rem;
+    -webkit-text-stroke: 1px black;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    background: transparent;
+    border: none;
+}
+
+input[type=number],
+input[type=number]:focus {
+    -moz-appearance: textfield;
+    background: transparent;
+    border: none;
+    caret-color: blueviolet;
+    font-size: 2rem;
+    -webkit-text-fill-color: white;
+}
+
+input[type=number]::placeholder {
+    -webkit-text-fill-color: white;
+    font-size: 1.5rem;
+}
+
+h1 {
+    font-family: "Fredoka One", "Anton", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 6rem;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-image: url('https://www.143vinyl.com/images/P/651_paw_print_pi_250-01.jpg');
+    color: transparent;
+}
+
+button {
+    text-transform: uppercase;
 }
