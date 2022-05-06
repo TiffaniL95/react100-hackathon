@@ -24,7 +24,8 @@ input::-webkit-inner-spin-button {
 }
 
 input[type=number],
-input[type=number]:focus {
+input[type=number]:focus,
+#distance {
     -moz-appearance: textfield;
     background: transparent;
     border: none;

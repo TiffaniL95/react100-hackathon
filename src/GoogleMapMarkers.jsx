@@ -7,7 +7,7 @@ const containerStyle = {
    height: '400px'
 }
 
-class GoogleMap extends Component {
+class MapContainer extends Component {
    
    render() {
       return (
@@ -16,11 +16,23 @@ class GoogleMap extends Component {
             zoom={8}
             containerStyle={containerStyle}
             initialCenter={this.props.mapCenter}
-         />
+         >
+
+            {
+               this.props.orgs.map((eachOrg, i) => {
+                  if(eachOrg.hasOwnProperty('location'))
+                  return <Marker
+                     key={i}
+                     position={eachOrg.location}
+                     name={eachOrg.name}
+                  />
+               })
+            }
+         </Map>
       )
    }
 }
 
 export default GoogleApiWrapper({
    apiKey: process.env.REACT_APP_MAP_KEY
-})(GoogleMap);
+})(MapContainer);
