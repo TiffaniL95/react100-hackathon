@@ -7,10 +7,9 @@ const containerStyle = {
    height: '400px'
 }
 
-class GoogleMap extends Component {
+class MapContainer extends Component {
 
    render() {
-      console.log('map', this.props.orgs[0])
       return (
          <Map
             google={this.props.google}
@@ -19,16 +18,18 @@ class GoogleMap extends Component {
             center={this.props.mapCenter}
          >
             
-         {
-            this.props.orgs.map((eachOrg, i) => {
-                  console.log(`org list-${i}`, this.props.orgs, 'each org', eachOrg, 'location', eachOrg.location)
+            {
+               this.props.orgs.map((eachOrg, i) => {
+                  console.log(`org list-${i}`, 'each org', eachOrg, 'location', eachOrg.location)
+//                  console.log(`org list-${i}`, 'each org', eachOrg, 'name', eachOrg.name)
                   return <Marker
                      key={i}
                      position={eachOrg.location}
                      name={eachOrg.name}
+                     
                   />
                })
-         }
+            }
          </Map>
       )
    }
@@ -37,4 +38,4 @@ class GoogleMap extends Component {
 // console.log(this.props.orgs[i].add.address1, data.results[i].geometry.location.lat, data.results[i].geometry.location.lng)
 export default GoogleApiWrapper({
    apiKey: process.env.REACT_APP_MAP_KEY
-})(GoogleMap);
+})(MapContainer);

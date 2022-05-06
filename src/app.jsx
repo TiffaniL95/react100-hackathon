@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GoogleMap from './GoogleMap';
+import MapContainer from './GoogleMap';
 import 'regenerator-runtime/runtime';
 
 
@@ -47,11 +47,12 @@ class App extends Component {
             method: "POST",
             body: params,
          })
-         .then(response => response.json().then(data => data.access_token))
+         .then(response => response.json()).then(data => data.access_token)
          .catch(error => console.log(error))
 
       const fetchOrgInfo = await fetch(`https://api.petfinder.com/v2/organizations?location=${this.state.zip}&distance=${this.state.distance}`, { headers: { Authorization: `Bearer ${fetchToken}` } })
-         .then(response => (response.json().then(data => {
+         .then(response => response.json())
+         .then(data => {
             let orgInfo = []
             data.organizations.map(org => {
                if(org.address.address1 != null)
@@ -60,23 +61,27 @@ class App extends Component {
             this.setState({
                orgs: orgInfo
             })
-         })))
+         })
          .catch(error => console.log(error))
 
       fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.zip}&key=${process.env.REACT_APP_MAP_KEY}`)
-      .then(response=>(response.json()).then(data=>{
-         this.setState({
-            mapCenter: data.results[0].geometry.location
-         })
-      }))
+      .then(response=>response.json())
+         .then(data=>{
+            this.setState({
+               mapCenter: data.results[0].geometry.location
+            })
+         }
+      )
+      
 
       let orgsClone = JSON.parse(JSON.stringify(this.state.orgs))
 
       orgsClone.map((eachOrg, i) => {
          fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${eachOrg.add.address1},+${eachOrg.add.state}&key=${process.env.REACT_APP_MAP_KEY}`)
-         .then(response=>(response.json()).then(data=>{
-            Object.assign(eachOrg, {location: data.results[0].geometry.location})
-         }))
+         .then(response=>(response.json()))
+            .then(data=>{
+               Object.assign(eachOrg, {location: data.results[0].geometry.location})
+            })
          .catch(error => console.log(error, eachOrg.add.address1))
       })
 
@@ -88,7 +93,7 @@ class App extends Component {
       return (
          <div className="text-center m-4">
             <h1>Rescue Me!</h1>
-               <GoogleMap 
+               <MapContainer 
                   mapCenter={this.state.mapCenter}
                   orgs={this.state.orgs}
                /> 
